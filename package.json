@@ -36,6 +36,7 @@
     "type": "tsc --noEmit",
     "coverage": "jest --coverage --coverageReporters=text-lcov",
     "jest-preview": "jest-preview",
+    "prepare": "yarn build",
     "test": "jest --config ./scripts/jest/jest.config.js",
     "test:coverage": "yarn test -- --coverage",
     "test:watch": "yarn test -- --onlyChanged --watch",
