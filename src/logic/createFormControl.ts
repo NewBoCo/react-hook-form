@@ -1013,7 +1013,6 @@ export function createFormControl<
   const handleSubmit: UseFormHandleSubmit<TFieldValues> =
     (onValid, onInvalid) => async (e) => {
       if (e) {
-        e.preventDefault && e.preventDefault();
         e.persist && e.persist();
       }
       let hasNoPromiseError = true;
@@ -1037,8 +1036,16 @@ export function createFormControl<
             errors: {} as FieldErrors<TFieldValues>,
             isSubmitting: true,
           });
-          await onValid(fieldValues, e);
+          if (onValid) {
+            if (e) {
+              e.preventDefault && e.preventDefault();
+            }
+            await onValid(fieldValues, e);
+          }
         } else {
+          if (e) {
+            e.preventDefault && e.preventDefault();
+          }
           if (onInvalid) {
             await onInvalid({ ..._formState.errors }, e);
           }
